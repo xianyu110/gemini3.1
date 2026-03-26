@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gemini 3.1 Pro 国内使用完全指南。5 种方式对比，帮助你按成本、门槛和需求快速选择。">
+  <title>Gemini 3.1 Pro 国内使用指南</title>
+  <style>
+    :root {
+      --bg: #1a1033;
+      --bg-panel: #26184a;
+      --bg-soft: #34215f;
+      --line: #120a25;
+      --text: #f6f0ff;
+      --muted: #ccb9f2;
+      --cyan: #5df6ff;
+      --pink: #ff6fe1;
+      --yellow: #ffe66d;
+      --green: #88ffb5;
+      --red: #ff7d7d;
+      --shadow: #0c0618;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Courier New", "LXGW WenKai Mono", monospace;
+      line-height: 1.65;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(93, 246, 255, 0.08), transparent 30%);
+      background-size: 18px 18px, 18px 18px, 100% 100%;
+    }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--yellow);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .wrap {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .pixel-box {
+      background: var(--bg-panel);
+      border: 4px solid var(--line);
+      box-shadow: 8px 8px 0 var(--shadow);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(20, 10, 38, 0.92);
+      border-bottom: 4px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .brand-badge,
+    .tag,
+    .chip,
+    .mini {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 3px solid var(--line);
+      box-shadow: 4px 4px 0 var(--shadow);
+      background: var(--bg-soft);
+      white-space: nowrap;
+    }
+
+    .brand-badge {
+      color: var(--yellow);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--text);
+      padding: 6px 10px;
+      border: 3px solid transparent;
+    }
+
+    .nav a:hover {
+      border-color: var(--cyan);
+      background: rgba(93, 246, 255, 0.1);
+    }
+
+    .hero {
+      padding: 40px 0 28px;
+    }
+
+    .hero-panel {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 220px;
+      height: 220px;
+      background:
+        linear-gradient(45deg, transparent 0 34%, var(--pink) 34% 42%, transparent 42% 58%, var(--cyan) 58% 66%, transparent 66%),
+        linear-gradient(var(--bg-soft), var(--bg-soft));
+      opacity: 0.25;
+      transform: rotate(12deg);
+    }
+
+    .hero h1,
+    .section-title {
+      margin: 0 0 12px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 60px);
+    }
+
+    .hero p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-tags,
+    .cta-row,
+    .stat-grid,
+    .method-meta,
+    .recommend-grid,
+    .tip-grid,
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .tag {
+      background: #482d7b;
+      color: var(--yellow);
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: var(--line);
+      background: var(--yellow);
+      border: 4px solid var(--line);
+      box-shadow: 6px 6px 0 var(--shadow);
+      text-transform: uppercase;
+    }
+
+    .cta.alt {
+      background: var(--cyan);
+    }
+
+    .cta:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0 var(--shadow);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .console,
+    .mini-card,
+    .method-card,
+    .table-wrap,
+    .faq-item,
+    .footer-panel,
+    .code-box {
+      padding: 18px;
+    }
+
+    .console {
+      background: #120d24;
+      border: 4px solid var(--line);
+      box-shadow: inset 0 0 0 4px #3f2a6f;
+    }
+
+    .console-title {
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .console p {
+      margin: 8px 0;
+      color: var(--muted);
+    }
+
+    .console .ok {
+      color: var(--green);
+    }
+
+    .console .warn {
+      color: var(--yellow);
+    }
+
+    .mini-card {
+      background: #1d1238;
+      border: 4px solid var(--line);
+    }
+
+    .mini-card strong,
+    .section-title strong {
+      color: var(--cyan);
+    }
+
+    section {
+      padding: 24px 0;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+    }
+
+    .section-lead {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .stat-grid {
+      margin-top: 16px;
+    }
+
+    .chip {
+      background: #46297f;
+      color: var(--text);
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .method-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .method-card::before {
+      content: attr(data-rank);
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 44px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.08);
+    }
+
+    .method-card h3,
+    .recommend-card h3,
+    .tip-card h3,
+    .faq-item summary {
+      margin: 0 0 10px;
+    }
+
+    .method-card p,
+    .recommend-card p,
+    .tip-card p,
+    .footer-panel p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .method-meta .mini {
+      background: #4b2d85;
+      color: var(--yellow);
+    }
+
+    ul,
+    ol {
+      margin: 10px 0 14px 20px;
+      padding: 0;
+    }
+
+    li {
+      margin: 4px 0;
+    }
+
+    .pros {
+      color: var(--green);
+    }
+
+    .cons {
+      color: var(--red);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th,
+    td {
+      padding: 12px 10px;
+      border: 3px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #4b2d85;
+      color: var(--yellow);
+    }
+
+    td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .recommend-grid,
+    .tip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .recommend-card,
+    .tip-card {
+      padding: 18px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    details summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details[open] {
+      border-color: var(--cyan);
+    }
+
+    .code-box pre {
+      margin: 0;
+      overflow-x: auto;
+      color: var(--green);
+    }
+
+    .footer {
+      padding: 20px 0 48px;
+    }
+
+    .footer-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .footer-panel h2 {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    @media (max-width: 960px) {
+      .hero-panel,
+      .methods,
+      .recommend-grid,
+      .tip-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero-panel,
+      .method-card,
+      .recommend-card,
+      .tip-card,
+      .footer-panel,
+      .table-wrap {
+        padding: 16px;
+      }
+
+      .hero {
+        padding-top: 22px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <span>Gemini 3.1 Pro</span>
+      </div>
+      <nav class="nav">
+        <a href="#methods">5 种方式</a>
+        <a href="#compare">方式对比</a>
+        <a href="#recommend">我的推荐</a>
+        <a href="#faq">常见问题</a>
+        <a href="#start">立即开始</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-panel pixel-box">
+        <div>
+          <div class="hero-tags">
+            <span class="tag">国内使用</span>
+            <span class="tag">5 种方式</span>
+            <span class="tag">快速选择指南</span>
+          </div>
+          <h1>Gemini 3.1 Pro<br>国内使用完全指南</h1>
+          <p>Google 刚发布 Gemini 3.1 Pro，性能翻倍，价格不变。问题不是能不能用，而是国内用户到底该怎么选。这里把 5 种方式放在一起，按成本、门槛和适用人群直接对比。</p>
+          <div class="cta-row">
+            <a class="cta" href="#methods">查看 5 种方式</a>
+            <a class="cta alt" href="#compare">直接看对比表</a>
+          </div>
+          <div class="stat-grid">
+            <span class="chip">方式一：镜像站（推荐）</span>
+            <span class="chip">方式二：多模型平台</span>
+            <span class="chip">方式三：AI Studio</span>
+            <span class="chip">方式四：官方订阅</span>
+            <span class="chip">方式五：API 调用</span>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="console">
+            <div class="console-title">SYSTEM STATUS</div>
+            <p><span class="ok">[OK]</span> 国内可选路径不止一种</p>
+            <p><span class="ok">[OK]</span> 普通用户可优先选低门槛方案</p>
+            <p><span class="warn">[!]</span> 官方方案通常需要额外网络条件或支付条件</p>
+            <p><span class="ok">[OK]</span> 开发者有网页、订阅、API 三条线可走</p>
+          </div>
+          <div class="mini-card pixel-box">
+            <strong>快速结论</strong>
+            <p>如果你只是想马上开始，优先看方式一；如果你要多模型切换，看方式二；如果你是开发者并且要官方 API，直接看方式三和方式五。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="methods" class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">5 种方式</h2>
+        <p class="section-lead">从最省事到最专业。每张卡片只保留决策最需要的信息：优点、门槛、适合谁、成本。</p>
+      </div>
+      <div class="methods">
+        <article class="method-card pixel-box" data-rank="01">
+          <h3>方式一：镜像站（推荐）</h3>
+          <div class="method-meta">
+            <span class="mini">难度：低</span>
+            <span class="mini">成本：免费</span>
+            <span class="mini">网络要求：低</span>
+          </div>
+          <p>这是最推荐的方式。特点是注册即用、国内直连、界面接近官方，适合不想折腾的绝大多数用户。</p>
+          <p><strong>地址：</strong><a href="https://geminiai.asia/list/#/home" target="_blank" rel="noreferrer">geminiai.asia/list/#/home</a></p>
+          <p class="pros"><strong>优点：</strong>完全免费、无需额外网络工具、速度快、支持 Gemini 全系列模型。</p>
+          <ul>
+            <li>注册账号后直接选模型使用</li>
+            <li>适合普通用户、学生、开发者、内容创作者</li>
+            <li>按文中示例，一周成本为 0</li>
+          </ul>
+          <p><strong>注意事项：</strong>目前标注为限时免费，建议尽早注册。</p>
+        </article>
+
+        <article class="method-card pixel-box" data-rank="02">
+          <h3>方式二：ChatGPT Plus 镜像站</h3>
+          <div class="method-meta">
+            <span class="mini">难度：低</span>
+            <span class="mini">成本：按量充值</span>
+            <span class="mini">模型：多模型</span>
+          </div>
+          <p>如果你不只想用 Gemini，而是要 Gemini、ChatGPT、Claude 统一切换，这一类平台更适合。</p>
+          <p><strong>地址：</strong><a href="https://chatgpt-plus.top/list/#/home" target="_blank" rel="noreferrer">chatgpt-plus.top/list/#/home</a></p>
+          <p class="pros"><strong>优点：</strong>多模型一站式、国内直连、支持支付宝和微信、按需充值。</p>
+          <ul>
+            <li>注册后充值即可使用</li>
+            <li>适合需要多个模型协作的用户</li>
+            <li>文中给出的价格区间是比官方便宜 50% - 70%</li>
+          </ul>
+          <p><strong>注意事项：</strong>不是免费方案，适合追求方便和多模型切换的人。</p>
+        </article>
+
+        <article class="method-card pixel-box" data-rank="03">
+          <h3>方式三：Google AI Studio（官方免费）</h3>
+          <div class="method-meta">
+            <span class="mini">难度：中</span>
+            <span class="mini">成本：免费 / 有配额</span>
+            <span class="mini">官方服务</span>
+          </div>
+          <p>这是 Google 官方提供的免费开发平台，既能网页对话，也能生成 API Key，适合测试和学习。</p>
+          <p><strong>地址：</strong><a href="https://aistudio.google.com" target="_blank" rel="noreferrer">aistudio.google.com</a></p>
+          <p class="pros"><strong>优点：</strong>官方、稳定、支持网页和 API、适合开发测试。</p>
+          <p class="cons"><strong>缺点：</strong>需要 Google 账号，且有每日和频率配额限制。</p>
+          <ul>
+            <li>网页对话适合轻度使用</li>
+            <li>API Key 适合开发调试</li>
+            <li>适合学生、开发者、轻度用户</li>
+          </ul>
+        </article>
+
+        <article class="method-card pixel-box" data-rank="04">
+          <h3>方式四：官方订阅</h3>
+          <div class="method-meta">
+            <span class="mini">难度：中高</span>
+            <span class="mini">成本：$20 / 月</span>
+            <span class="mini">隐私与稳定性优先</span>
+          </div>
+          <p>如果你要完整官方服务，并且更重视稳定性、隐私和持续可用性，这条路最直接，但门槛更高。</p>
+          <p class="pros"><strong>优点：</strong>官方支持、数据隐私更有保障、可用最新功能、限制更少。</p>
+          <p class="cons"><strong>缺点：</strong>需要额外网络条件、外币信用卡，且月费约 $20。</p>
+          <ul>
+            <li>适合企业用户和高要求用户</li>
+            <li>适合不希望依赖第三方平台的人</li>
+            <li>年费估算约为 $240</li>
+          </ul>
+        </article>
+
+        <article class="method-card pixel-box" data-rank="05">
+          <h3>方式五：API 调用（开发者）</h3>
+          <div class="method-meta">
+            <span class="mini">难度：高</span>
+            <span class="mini">成本：按量付费</span>
+            <span class="mini">可集成到应用</span>
+          </div>
+          <p>这是最灵活的方式。适合要把模型能力接进产品、自动化流程或企业服务的开发者。</p>
+          <p class="pros"><strong>优点：</strong>灵活、可编程、适合批量处理和生产集成。</p>
+          <p class="cons"><strong>缺点：</strong>需要编程知识，配置和成本控制都要自己负责。</p>
+          <ul>
+            <li>官方路径：通过 AI Studio 申请 API Key</li>
+            <li>也可以考虑第三方 API 中转方案</li>
+            <li>适合开发者、企业、高级用户</li>
+          </ul>
+        </article>
+
+        <article class="code-box pixel-box">
+          <h3>API 示例</h3>
+          <p>如果你最后选的是开发者路线，可以参考这段示例快速开始：</p>
+          <pre><code>import google.generativeai as genai
+
+# 配置 API Key
+genai.configure(api_key='your-api-key')
+
+# 创建模型
+model = genai.GenerativeModel('gemini-3.1-pro')
+
+# 生成内容
+response = model.generate_content('Hello!')
+print(response.text)</code></pre>
+        </article>
+      </div>
+    </section>
+
+    <section id="compare" class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">方式对比</h2>
+        <p class="section-lead">如果你不想逐段读完，直接看这张表就够了。</p>
+      </div>
+      <div class="table-wrap pixel-box">
+        <table>
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>镜像站</th>
+              <th>多模型平台</th>
+              <th>AI Studio</th>
+              <th>官方订阅</th>
+              <th>API 调用</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>难度</td>
+              <td>⭐</td>
+              <td>⭐</td>
+              <td>⭐⭐</td>
+              <td>⭐⭐⭐</td>
+              <td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+              <td>成本</td>
+              <td>免费</td>
+              <td>按量付费</td>
+              <td>免费（有限额）</td>
+              <td>$20 / 月</td>
+              <td>按量付费</td>
+            </tr>
+            <tr>
+              <td>网络要求</td>
+              <td>低</td>
+              <td>低</td>
+              <td>较高</td>
+              <td>较高</td>
+              <td>官方方案较高</td>
+            </tr>
+            <tr>
+              <td>支付门槛</td>
+              <td>无</td>
+              <td>国内支付</td>
+              <td>无</td>
+              <td>外币卡</td>
+              <td>视方案而定</td>
+            </tr>
+            <tr>
+              <td>速度</td>
+              <td>快</td>
+              <td>快</td>
+              <td>中等</td>
+              <td>中等</td>
+              <td>快</td>
+            </tr>
+            <tr>
+              <td>适合人群</td>
+              <td>所有人</td>
+              <td>多模型用户</td>
+              <td>学生 / 开发者</td>
+              <td>企业 / 高端用户</td>
+              <td>开发者</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="recommend" class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">我的推荐</h2>
+        <p class="section-lead">按不同使用场景给出直接建议，减少选择成本。</p>
+      </div>
+      <div class="recommend-grid">
+        <article class="recommend-card pixel-box">
+          <h3>普通用户</h3>
+          <p><strong>推荐：</strong>方式一，镜像站。</p>
+          <p>理由很直接：免费、门槛低、注册即用、功能完整。你如果只是想聊天、写作、做日常任务，这条路最省时间。</p>
+        </article>
+        <article class="recommend-card pixel-box">
+          <h3>需要多个 AI 模型</h3>
+          <p><strong>推荐：</strong>方式二，多模型平台。</p>
+          <p>你需要的是模型切换效率，不是只绑定单一平台。一个入口同时跑 Gemini、ChatGPT、Claude，管理上更简单。</p>
+        </article>
+        <article class="recommend-card pixel-box">
+          <h3>学生或开发者</h3>
+          <p><strong>推荐：</strong>方式三，Google AI Studio。</p>
+          <p>优先用官方免费配额学习和测试。网页对话和 API Key 都有，适合先验证思路，再决定要不要上付费方案。</p>
+        </article>
+        <article class="recommend-card pixel-box">
+          <h3>企业用户</h3>
+          <p><strong>推荐：</strong>方式四，官方订阅。</p>
+          <p>如果你最关心服务稳定性、官方支持和隐私控制，官方订阅更合适，前提是你能接受支付和网络条件。</p>
+        </article>
+        <article class="recommend-card pixel-box">
+          <h3>专业开发者</h3>
+          <p><strong>推荐：</strong>方式五，API 调用。</p>
+          <p>一旦你要接入业务系统、自动化工作流或批量处理，网页入口就不够了，API 是唯一可扩展路径。</p>
+        </article>
+        <article class="recommend-card pixel-box">
+          <h3>预算有限</h3>
+          <p><strong>推荐：</strong>方式一或方式三。</p>
+          <p>如果目标是尽量不花钱，镜像站和 AI Studio 是最合适的两个起点。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">常见问题</h2>
+        <p class="section-lead">保留最常见的问题，方便快速判断。</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item pixel-box">
+          <summary>Q1：哪种方式最省钱？</summary>
+          <p>镜像站最省钱，因为是完全免费。</p>
+        </details>
+        <details class="faq-item pixel-box">
+          <summary>Q2：哪种方式最稳定？</summary>
+          <p>官方订阅通常最稳定，但它对应更高门槛和持续付费。</p>
+        </details>
+        <details class="faq-item pixel-box">
+          <summary>Q3：开发者应该怎么选？</summary>
+          <p>如果只是测试，用镜像站或 AI Studio；如果要集成进自己的应用，直接走 API。</p>
+        </details>
+        <details class="faq-item pixel-box">
+          <summary>Q4：AI Studio 的免费额度够用吗？</summary>
+          <p>对于轻度使用和测试通常够用；如果进入高频或生产场景，就要考虑付费方案。</p>
+        </details>
+        <details class="faq-item pixel-box">
+          <summary>Q5：多模型平台和 Gemini 镜像站的核心区别是什么？</summary>
+          <p>前者是一个入口支持多个模型，后者聚焦 Gemini 系列。如果你有模型切换需求，就优先多模型平台。</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="section-head">
+        <h2 class="section-title">使用技巧</h2>
+        <p class="section-lead">这些技巧可以直接提升实际使用效果。</p>
+      </div>
+      <div class="tip-grid">
+        <article class="tip-card pixel-box">
+          <h3>技巧 1：选对模型</h3>
+          <p>Gemini 3.1 Pro 适合复杂任务、编程、数学；Gemini 3 Pro 适合日常对话和写作；Deep Think 适合深度推理；2.0 Flash 适合快速响应。</p>
+        </article>
+        <article class="tip-card pixel-box">
+          <h3>技巧 2：Prompt 要具体</h3>
+          <p>不要只说“帮我写代码”，要明确语言、输入输出、功能和交付格式。约束越清楚，结果越稳定。</p>
+        </article>
+        <article class="tip-card pixel-box">
+          <h3>技巧 3：复杂任务分步骤</h3>
+          <p>先让模型理解需求，再让它设计方案，最后让它实现。这样比一步到位更容易得到可用结果。</p>
+        </article>
+        <article class="tip-card pixel-box">
+          <h3>技巧 4：保留高质量 Prompt</h3>
+          <p>好用的 Prompt 本质上是资产。保存下来，下次直接复用，比每次重新试错高效得多。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="start" class="wrap">
+      <div class="footer-panel pixel-box">
+        <h2>立即开始</h2>
+        <p>如果你只想现在就选一个入口，优先从下面三种开始：</p>
+        <div class="footer-links">
+          <a class="cta" href="https://geminiai.asia/list/#/home" target="_blank" rel="noreferrer">方式一：Gemini 镜像站</a>
+          <a class="cta alt" href="https://chatgpt-plus.top/list/#/home" target="_blank" rel="noreferrer">方式二：多模型平台</a>
+          <a class="cta" href="https://aistudio.google.com" target="_blank" rel="noreferrer">方式三：AI Studio</a>
+        </div>
+        <p class="muted">如果你只想尽快开始，优先从最适合自己的入口进入即可。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <div class="footer-panel pixel-box">
+      <h2>最后结论</h2>
+      <p>如果你是普通用户，优先选镜像站；如果你需要多模型协作，选多模型平台；如果你是开发者，优先看 AI Studio 和 API 调用。</p>
+      <p class="muted">核心原则很简单：先选最低门槛、最符合自己需求的方案，再决定是否升级到更专业的路径。</p>
+    </div>
+  </footer>
+</body>
+</html>
