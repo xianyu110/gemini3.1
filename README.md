@@ -6,6 +6,18 @@ Google 刚发布了 Gemini 3.1 Pro，性能翻倍，价格不变。
 
 我整理了5种方式，从简单到专业，总有一种适合你。
 
+## 国内直连三入口（速查）
+
+不想看长文？先收藏这三个：
+
+| 场景 | 入口 | 说明 |
+|------|------|------|
+| API / 开发接入 | https://tryallapi.com/ | 国内 API 中转（MomoAPI），按量调用 Gemini |
+| 网页日常对话 | https://trygpt.asia/list/#/home | 镜像站，注册即聊，无需魔法 |
+| 多模型一站聊 | http://trymodel.chat/ | Gemini + ChatGPT + Claude + Grok 聚合 |
+
+下面是完整 5 种方式详解（含官方与订阅路径）。
+
 ## 方式一：镜像站（推荐）
 
 这是最简单的方式，也是我自己在用的。
@@ -508,7 +520,8 @@ A：对于轻度使用和测试够用，重度使用建议选择其他方式。
 
 ### 方式一：Gemini 镜像站（推荐）
 
-访问：https://geminiai.asia/list/#/home
+访问：https://trygpt.asia/list/#/home  
+备用：https://geminiai.asia/list/#/home
 
 - 注册账号
 - 选择模型
@@ -563,7 +576,10 @@ Gemini 3.1 Pro 在国内使用，有5种方式：
 
 ---
 
-**Gemini 镜像站地址**：https://geminiai.asia/list/#/home  
+**Gemini 镜像站**：https://trygpt.asia/list/#/home  
+**备用镜像**：https://geminiai.asia/list/#/home  
+**多模型聚合**：http://trymodel.chat/  
+**API 中转**：https://tryallapi.com/  
 **ChatGPT Plus 镜像站**：https://chatgpt-plus.top/list/#/home  
 **Google AI Studio**：https://aistudio.google.com
 
