@@ -35,7 +35,8 @@ Google 刚发布了 Gemini 3.1 Pro，性能翻倍，价格不变。
 
 **第一步：访问镜像站**
 
-地址：https://geminiai.asia/list/#/home
+- 地址 1：https://trygpt.asia/list/#/home（推荐）
+- 地址 2：https://geminiai.asia/list/#/home（备用）
 
 ![Gemini 镜像站](https://upload.maynor1024.live/file/1771546698300_image-20260220081810246.png)
 
@@ -102,6 +103,8 @@ Google 刚发布了 Gemini 3.1 Pro，性能翻倍，价格不变。
 **第一步：访问平台**
 
 地址：https://chatgpt-plus.top/list/#/home
+
+也可试用多模型聚合站：http://trymodel.chat/（Gemini / ChatGPT / Claude / Grok 一站聊）
 
 **第二步：注册账号**
 
